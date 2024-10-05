@@ -1,4 +1,10 @@
 # studia-techniki-obiektowe
 
+## będzie robione api do autoryzacji
+  - system autoryzacji oauth
+  - mają się pojawić obiekty które mają mieć konstruktory
+  - komentarze
 
-1. rest api do autoryzacji
+### na dzisiaj 
+- wirtualna zmienna środowiskowa (venv) /python3 -m venv .venv/
+- postawienie django
