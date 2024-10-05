@@ -6,6 +6,11 @@
 - mają się pojawić obiekty które mają mieć konstruktory
 - komentarze
 
+### migracje
+
+- python manage.py makemigrations - tworzenie nowych migracji w oparciu o zmiany w projekcie
+- python manage.py migrate - do zastosowywania w projekcie migracji
+
 ### na dzisiaj
 
 - wirtualna zmienna środowiskowa (venv)
@@ -18,23 +23,13 @@
   - django-admin startapp api_app
   - python3 manage.py runserver
   - rejestracja aplikacji w projekcie
+    - odbywa się w INSTALLED_APPS w settings.py
+  - migracja (python manage.py migrate)
+  - tworzenie uytkownika superuser (python3 manage.py createsuperuser)
 
-    <!-- INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'api-app'
-    ] -->
+### na później
 
-- migracja  (python manage.py migrate)
-- tworzenie uytkownika superuser (python3 manage.py createsuperuser)
-
-
-- zrobieie własnych pól które będą dziedziczyć
-- wystawić sobie jsona
-- artykuły, modele (potem zddecydujemy, które mają być przed autoryzacją, a które po)
-- 
-
+- zrobienie własnych pól które będą dziedziczyć
+- wystawić sobie jsona np
+- zrobić artykuły, modele (potem zddecydujemy, które mają być przed autoryzacją, a które po)
+- widoki
