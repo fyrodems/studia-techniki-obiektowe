@@ -6,5 +6,8 @@
   - komentarze
 
 ### na dzisiaj 
-- wirtualna zmienna środowiskowa (venv) /python3 -m venv .venv/
+- wirtualna zmienna środowiskowa (venv)
+    - python3 -m venv .venv
+    - ./.venv/Scripts/activate
+    - pip install Django
 - postawienie django
