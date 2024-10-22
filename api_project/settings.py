@@ -73,9 +73,14 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Wygaszenie sesji po 10 sekundach braku aktywności
+SESSION_COOKIE_AGE = 10  # czas w sekundach, po którym sesja wygaśnie
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True  # wygaszenie po zamknięciu przeglądarki
+
+
 # Tokeny JWT
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5), 
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1), 
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     # 'ROTATE_REFRESH_TOKENS': False,
     # 'BLACKLIST_AFTER_ROTATION': True,
@@ -92,6 +97,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 ]
 
 ROOT_URLCONF = 'api_project.urls'

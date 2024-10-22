@@ -3,15 +3,66 @@
 
 <head>
     <title>Artykuły</title>
+    <script>
+        // Funkcja do wyświetlenia popupu i przekierowania na stronę publicznych artykułów
+        function showLogoutPopup(message) {
+            alert(message);  // Wyświetla popup z informacją o wylogowaniu
+            window.location.href = "/api/articles/";  // Przekierowuje na stronę publicznych artykułów
+        }
+
+        // Funkcja do śledzenia czasu sesji
+        function trackSessionExpiry(sessionExpiryTime) {
+            var currentTime = new Date().getTime();
+            var timeLeft = sessionExpiryTime - currentTime;
+
+            if (timeLeft <= 0) {
+                // Sesja wygasła, pokaż popup i przekieruj
+                showLogoutPopup("Sesja wygasła. Zostałeś wylogowany.");
+            } else {
+                // Sprawdź ponownie po 1 sekundzie
+                setTimeout(function () {
+                    trackSessionExpiry(sessionExpiryTime);
+                }, 1000);
+            }
+        }
+
+        // Pobierz czas wygaśnięcia sesji z serwera (10 sekund od zalogowania)
+        var sessionStartTime = new Date().getTime();
+        var sessionDuration = 10000;  // 10 sekund (10000 milisekund)
+        var sessionExpiryTime = sessionStartTime + sessionDuration;
+
+        // Śledź wygaśnięcie sesji
+        trackSessionExpiry(sessionExpiryTime);
+    </script>
 </head>
 
 <body>
-    <h1>Artykuły publiczne</h1>
+    <h1>Artykuły</h1>
+
+    {% if user_authenticated %}
+    <h2>Witaj! Jesteś zalogowany. Oto pełna lista artykułów:</h2>
+    {% else %}
+    <h2>Publiczne artykuły (zaloguj się, aby zobaczyć więcej):</h2>
+    {% endif %}
+
     <ul>
         {% for article in articles %}
+        {% if user_authenticated %}
+        <li>{{ article.title }} - Rok: {{ article.year }}</li>
+        {% else %}
         <li>{{ article.title }}</li>
+        {% endif %}
         {% endfor %}
     </ul>
+
+    {% if not user_authenticated %}
+    <p><a href="{% url 'login' %}">Zaloguj się</a> aby zobaczyć więcej szczegółów!</p>
+    {% else %}
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Wyloguj się</button>
+    </form>
+    {% endif %}
 </body>
 
 </html>
