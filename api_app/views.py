@@ -1,7 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
-
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -57,12 +55,12 @@ def article_list_view(request):
     # Sprawdź, czy użytkownik był zalogowany, ale sesja wygasła
     if not request.user.is_authenticated and 'is_logged_out' in request.session:
         messages.warning(request, "Sesja wygasła. Zostałeś wylogowany.")
-        del request.session['is_logged_out']  # Usunięcie flagi po wyświetleniu wiadomości
+        del request.session['is_logged_out']  
 
     # Jeśli użytkownik jest zalogowany, pokaż artykuły prywatne
     if request.user.is_authenticated:
-        request.session['is_logged_out'] = True  # Ustawienie flagi do późniejszego sprawdzenia
-        articles = Article.objects.all()  # Zalogowani użytkownicy widzą pełne dane
+        request.session['is_logged_out'] = True  
+        articles = Article.objects.all()  
     else:
         articles = Article.objects.values('title')  # Niezalogowani widzą tylko tytuły artykułów
 
@@ -78,7 +76,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, f"Witaj {username}, jesteś zalogowany!")
-                return redirect('article-list')  # Przekierowanie po zalogowaniu
+                return redirect('article-list')  
             else:
                 messages.error(request, "Nieprawidłowe dane logowania.")
         else:
